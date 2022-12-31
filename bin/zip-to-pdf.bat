@@ -1,23 +1,12 @@
-@REM BatToExePortable
 
 echo off
-
-@REM # -----------------
-@REM # 檢查有沒有參數
-
-if not exist %1 (
-  pause
-  exit
-)
-
-@REM # -----------------
-@REM # 確認環境
 
 WHERE git
 IF %ERRORLEVEL% NEQ 0 (
   ECHO git wasn't found 
   start "" https://git-scm.com/downloads
 
+  ECHO "Please install git and REBOOT to activate it."
   pause
   exit
 )
@@ -27,6 +16,7 @@ IF %ERRORLEVEL% NEQ 0 (
   ECHO node wasn't found 
   start "" https://nodejs.org/en/download/
 
+  ECHO "Please install node and REBOOT to activate it."
   pause
   exit
 )
@@ -36,12 +26,10 @@ IF %ERRORLEVEL% NEQ 0 (
   ECHO docker-compose wasn't found 
   start "" https://docs.docker.com/compose/install/
 
+  ECHO "Please install docker-compose and  REBOOT to activate it."
   pause
   exit
 )
-
-@REM # ---------------
-@REM # 安裝或更新專案
 
 set PROJECT_NAME=docker-ZIP-to-PDF
 
@@ -57,8 +45,6 @@ if not exist "%temp%\%PROJECT_NAME%" (
   git pull --force
 )
 
-@REM # -----------------
-@REM # 執行指令
 
 for %%x in (%*) do (
   if not exist %%~x  (

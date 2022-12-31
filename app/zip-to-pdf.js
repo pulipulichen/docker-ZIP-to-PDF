@@ -9,6 +9,9 @@ let main = async function () {
 
   for (let i = 0; i < files.length; i++) {
     let file = files[i]
+    if (file.endsWith('.zip') === false) {
+      continue
+    }
 
     let filename = path.basename(file)
     let filenameNoExt = filename

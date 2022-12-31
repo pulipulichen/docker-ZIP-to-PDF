@@ -1,6 +1,8 @@
-const ShellSpawn = require('./app/lib/ShellSpawn')
-const GetExistedArgv = require('./app/lib/GetExistedArgv')
+const ShellSpawn = require('./lib/ShellSpawn')
+const GetExistedArgv = require('./lib/GetExistedArgv')
+
 const path = require('path')
+const fs = require('fs')
 
 let main = async function () {
   let files = GetExistedArgv()
@@ -9,10 +11,34 @@ let main = async function () {
     let file = files[i]
 
     let filename = path.basename(file)
+    let filenameNoExt = filename
+    if (filenameNoExt.endsWith('.zip')) {
+      filenameNoExt = filenameNoExt.slice(0, -4)
+    }
 
-    await ShellSpawn([
-      `cp "${file}" /cache/${filename}`
-    ])
+    let commandsUnzip = [
+      `rm -rf /cache/*`,
+      `cp "${file}" "/cache/${filename}"`,
+      `unzip -d "/cache/img" "/cache/${filename}"`
+    ]
+    for (let j = 0; j < commandsUnzip.length; j++) {
+      await ShellSpawn(commandsUnzip[j])
+    }
+
+    // 列出檔案名稱
+    let imgs = fs.readdirSync('/cache/img/')
+    imgs.sort((a, b) => {
+      let aID = Number(a.match(/\d+/)[0])
+      let bID = Number(b.match(/\d+/)[0])
+
+      return (aID - bID)
+    })
+
+    imgs = imgs.map(filename => {
+      return `"/cache/img/${filename}"`
+    })
+
+    await ShellSpawn(`img2pdf -o "/input/${filenameNoExt}.pdf" ${imgs.join(" ")}`)
   }
 }
 

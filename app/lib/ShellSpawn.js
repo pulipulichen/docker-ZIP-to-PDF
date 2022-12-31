@@ -2,8 +2,7 @@ const { spawn } = require("child_process");
 
 module.exports = function (cmdArray, stderrHandler, errorHandler) {
   if (typeof(cmdArray) === "string") {
-    // cmdArray = cmdArray.split(' ')
-    cmdArray = [cmdArray]
+    cmdArray = cmdArray.split(' ')
   }
 
   if (typeof(stderrHandler) !== 'function') {

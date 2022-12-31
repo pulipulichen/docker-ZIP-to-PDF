@@ -1,13 +1,16 @@
 #!/bin/bash
 
+# -------------------
+# 檢查有沒有參數
+
 if [ ! -f "$1" ]; then
   echo "$1 does not exist."
   exit
 fi
 
 # ------------------
+# 確認環境
 
-# 先確認有沒有git
 if ! command -v git &> /dev/null
 then
   echo "git could not be found"
@@ -15,11 +18,17 @@ then
   exit
 fi
 
-# 再確認有沒有node
 if ! command -v node &> /dev/null
 then
   echo "node could not be found"
   xdg-open https://nodejs.org/en/download/ &
+  exit
+fi
+
+if ! command -v docker-compose &> /dev/null
+then
+  echo "docker-compose could not be found"
+  xdg-open https://docs.docker.com/compose/install/ &
   exit
 fi
 

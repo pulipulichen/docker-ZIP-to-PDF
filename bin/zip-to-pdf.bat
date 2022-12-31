@@ -26,7 +26,14 @@ IF %ERRORLEVEL% NEQ 0 (
   ECHO docker-compose wasn't found 
   start "" https://docs.docker.com/compose/install/
 
-  ECHO "Please install docker-compose and  REBOOT to activate it."
+  ECHO "Please install Docker Desktop and REBOOT twice to activate it."
+  pause
+  exit
+)
+
+docker version
+IF %ERRORLEVEL% NEQ 0 (
+  ECHO "Please start Docker Desktop."
   pause
   exit
 )
@@ -47,7 +54,7 @@ if not exist "%temp%\%PROJECT_NAME%" (
 
 
 for %%x in (%*) do (
-  if not exist %%~x  (
+  if not exist "%%~x"  (
     echo %%~x does not exist.
   ) else (
     node "%temp%\%PROJECT_NAME%\index.js" "%%~x"

@@ -3,9 +3,14 @@
 # -------------------
 # 檢查有沒有參數
 
-if [ ! -f "$1" ]; then
-  echo "$1 does not exist."
-  exit
+var="$1"
+useParams="true"
+if [ ! -f "$var" ]; then
+  # echo "$1 does not exist."
+  # exit
+  var=$(kdialog --getopenfilename --multiple ~/ 'application/zip')
+  var=`echo "${var}" | xargs`
+  useParams="false"
 fi
 
 # ------------------
@@ -62,11 +67,22 @@ cp "/tmp/${PROJECT_NAME}/package.json" "/tmp/${PROJECT_NAME}.cache/"
 # -----------------
 # 執行指令
 
-for var in "$@"
-do
+if [ "${useParams}" == "true" ]; then
+  for var in "$@"
+  do
+    if [ ! -f "${var}" ]; then
+      echo "$1 does not exist."
+      continue
+    fi
+    node "/tmp/${PROJECT_NAME}/index.js" "${var}"
+  done
+else
   if [ ! -f "${var}" ]; then
-    echo "$1 does not exist."
-    continue
+    echo "$var does not exist."
+    exit
   fi
   node "/tmp/${PROJECT_NAME}/index.js" "${var}"
-done
+fi
+
+
+

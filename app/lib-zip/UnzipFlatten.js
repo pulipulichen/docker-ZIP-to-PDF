@@ -7,11 +7,9 @@ const path = require('path')
 
 const ShellSpawn = require('./../lib/ShellSpawn')
 
-// const tmpDir = `/tmp/unzip`
+const tmpDir = `/tmp/unzip`
 
 module.exports = async function(input, targetDir) {
-
-  const tmpDir = path.join()
 
   if (fs.existsSync(tmpDir)) {
     await ShellSpawn([`rm`, `-rf`, tmpDir]) 

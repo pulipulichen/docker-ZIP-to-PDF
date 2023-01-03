@@ -9,13 +9,6 @@ module.exports = function () {
 
   args = args.slice(2)
   args = args.filter(arg => {
-
-    if (fs.existsSync(arg) === false) {
-      arg = path.resolve(process.cwd(), arg)
-    }
-
-    console.log({arg})
-
     return fs.existsSync(arg)
   })
   return args

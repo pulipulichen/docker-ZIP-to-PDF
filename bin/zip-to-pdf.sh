@@ -70,6 +70,9 @@ cp "/tmp/${PROJECT_NAME}/package.json" "/tmp/${PROJECT_NAME}.cache/"
 if [ "${useParams}" == "true" ]; then
   for var in "$@"
   do
+    if [ ! -f "${var}" ]; then
+      var=`realpath ${var}`
+    fi
     echo "${var}"
     node "/tmp/${PROJECT_NAME}/index.js" "${var}"
   done

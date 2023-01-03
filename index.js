@@ -12,12 +12,6 @@ let main = async function () {
   for (let i = 0; i < files.length; i++) {
     let file = files[i]
 
-    if (fs.existsSync(file) === false) {
-      file = path.resolve('./', file)
-    }
-
-    console.log({file})
-
     if (file.endsWith('.zip') === false) {
       continue
     }

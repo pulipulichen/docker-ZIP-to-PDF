@@ -11,7 +11,7 @@ module.exports = function () {
   args = args.filter(arg => {
 
     if (fs.existsSync(arg) === false) {
-      file = path.resolve('./', arg)
+      arg = path.resolve('./', arg)
     }
 
     console.log({arg})

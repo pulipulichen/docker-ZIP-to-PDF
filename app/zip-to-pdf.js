@@ -36,6 +36,9 @@ let main = async function () {
     await extract(`/cache/${filename}`, { dir: '/cache/img' })
     console.log('Extraction complete')
 
+    await ShellSpawn('ls /cache/img')
+
+
     // ----------------
 
     // 列出檔案名稱

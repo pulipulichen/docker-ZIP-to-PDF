@@ -11,9 +11,8 @@ WORK_DIR=`pwd`
 if [ ! -f "$var" ]; then
   # echo "$1 does not exist."
   # exit
-  # var=$(kdialog --getopenfilename --multiple ~/ 'application/zip')
-  # var=`echo "${var}" | xargs`
-  # sudo npm i node-file-dialog@1.0.3 -g
+  var=$(kdialog --getopenfilename --multiple ~/ 'application/zip')
+  var=`echo "${var}" | xargs`
   useParams="false"
 fi
 
@@ -80,12 +79,11 @@ if [ "${useParams}" == "true" ]; then
     node "/tmp/${PROJECT_NAME}/index.js" "${var}"
   done
 else
-  # if [ ! -f "${var}" ]; then
-  #   echo "$var does not exist."
-  #   exit
-  # fi
-  # node "/tmp/${PROJECT_NAME}/index.js" "${var}"
-  node "/tmp/${PROJECT_NAME}/index.js"
+  if [ ! -f "${var}" ]; then
+    echo "$var does not exist."
+    exit
+  fi
+  node "/tmp/${PROJECT_NAME}/index.js" "${var}"
 fi
 
 

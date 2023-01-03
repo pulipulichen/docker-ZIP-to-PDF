@@ -13,14 +13,16 @@ let main = async function () {
 
   if (files.length === 0) {
     try {
-      const dialog = require('file-dialog')
-      files.push(await dialog({accept: 'application/zip'}))
+      const dialog = require('node-file-dialog')
+      files.push(await dialog({type:'open-file'}))
     }
     catch (e) {
-      await ShellSpawn(['npm', 'i', 'file-dialog@0.0.8'])
-      const dialog = require('file-dialog')
-      files.push(await dialog({accept: 'application/zip'}))
+      await ShellSpawn(['npm', 'i', 'node-file-dialog@1.0.3'])
+      const dialog = require('node-file-dialog')
+      files.push(await dialog({type:'open-file'}))
     } 
+    
+    // files.push(await dialog({type:'open-file'}))
   }
 
   // console.log(files)

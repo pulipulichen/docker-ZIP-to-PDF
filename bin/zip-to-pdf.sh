@@ -13,7 +13,7 @@ if [ ! -f "$var" ]; then
   # exit
   # var=$(kdialog --getopenfilename --multiple ~/ 'application/zip')
   # var=`echo "${var}" | xargs`
-  sudo npm i node-file-dialog@1.0.3 -g
+  # sudo npm i node-file-dialog@1.0.3 -g
   useParams="false"
 fi
 

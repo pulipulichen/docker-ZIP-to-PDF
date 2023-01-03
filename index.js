@@ -2,7 +2,7 @@ const ShellSpawn = require('./app/lib/ShellSpawn')
 const GetExistedArgv = require('./app/lib/GetExistedArgv')
 const SetDockerComposeYML = require('./app/lib/SetDockerComposeYML')
 
-const dialog = require('node-file-dialog')
+// const dialog = require('node-file-dialog')
 
 // const fs = require('fs')
 // const path = require('path')
@@ -12,7 +12,15 @@ let main = async function () {
   let files = GetExistedArgv()
 
   if (files.length === 0) {
-    files.push(await dialog({type:'open-file'}))
+    try {
+      const dialog = require('file-dialog')
+      files.push(await dialog({accept: 'application/zip'}))
+    }
+    catch (e) {
+      await ShellSpawn(['npm', 'i', 'file-dialog@0.0.8'])
+      const dialog = require('file-dialog')
+      files.push(await dialog({accept: 'application/zip'}))
+    } 
   }
 
   // console.log(files)

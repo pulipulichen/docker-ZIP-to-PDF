@@ -25,6 +25,7 @@ let main = async function () {
     let commandsUnzip = [
       `rm -rf /cache/*`,
       `cp "${file}" "/cache/${filename}"`,
+      `mkdir -p /cache/img`
       // `unzip -j -d "/cache/img" "/cache/${filename}"`
     ]
     for (let j = 0; j < commandsUnzip.length; j++) {

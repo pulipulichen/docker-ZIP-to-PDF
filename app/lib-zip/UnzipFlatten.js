@@ -7,9 +7,11 @@ const path = require('path')
 
 const ShellSpawn = require('./../lib/ShellSpawn')
 
-const tmpDir = `/tmp/unzip`
+// const tmpDir = `/tmp/unzip`
 
 module.exports = async function(input, targetDir) {
+
+  const tmpDir = path.join()
 
   if (fs.existsSync(tmpDir)) {
     await ShellSpawn([`rm`, `-rf`, tmpDir]) 
@@ -25,11 +27,13 @@ module.exports = async function(input, targetDir) {
   }
 
   const entries = fg.sync([`${tmpDir}/**/*.*`], { dot: true, onlyFiles: true })
-  entries.forEach((entry) => {
+  for (let i = 0; i < entries.length; i++) {
+    let entry = entries[i]
     let name = path.basename(entry)
     let target = `${targetDir}/${name}`
     if (fs.existsSync(target) === false) {
-      fs.renameSync(entry, target)
+      // fs.renameSync(entry, target)
+      await ShellSpawn(['mv', entry, target])
     }
-  })
+  }
 } 

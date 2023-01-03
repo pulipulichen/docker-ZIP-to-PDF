@@ -70,10 +70,6 @@ cp "/tmp/${PROJECT_NAME}/package.json" "/tmp/${PROJECT_NAME}.cache/"
 if [ "${useParams}" == "true" ]; then
   for var in "$@"
   do
-    if [ ! -f "${var}" ]; then
-      echo "$1 does not exist."
-      continue
-    fi
     node "/tmp/${PROJECT_NAME}/index.js" "${var}"
   done
 else

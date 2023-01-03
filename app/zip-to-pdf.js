@@ -5,7 +5,7 @@ const path = require('path')
 const fs = require('fs')
 
 const extract = require('extract-zip')
- 
+const fg = require('fast-glob');
 
 let main = async function () {
   let files = GetExistedArgv()
@@ -33,10 +33,17 @@ let main = async function () {
 
     // -----------------
 
-    await extract(`/cache/${filename}`, { dir: '/cache/img' })
-    console.log('Extraction complete')
+    await extract(`/cache/${filename}`, { dir: '/cache/unzip' })
+    // console.log('Extraction complete')
 
-    await ShellSpawn('ls /cache/img')
+    const entries = fg.sync(['/cache/unzip/**/*.*'], { dot: true, onlyFiles: true })
+    entries.forEach((entry) => {
+      let name = path.basename(entry)
+      let target = `/cache/img/${name}`
+      if (fs.existsSync(target) === false) {
+        fs.renameSync(entry, target)
+      }
+    })
 
 
     // ----------------

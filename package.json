@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/pulipulichen/docker-ZIP-to-PDF#readme",
   "dependencies": {
-    "extract-zip": "2.0.1"
+    "extract-zip": "2.0.1",
+    "fast-glob": "3.2.12"
   }
 }

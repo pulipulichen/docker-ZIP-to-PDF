@@ -1,6 +1,16 @@
 
 echo off
 
+set PROJECT_NAME=docker-ZIP-to-PDF
+
+
+set USE_PARAMS="true"
+set USER_SELECT=""
+
+if "%~1"=="" (
+  set USE_PARAMS="false"
+)
+
 WHERE git
 IF %ERRORLEVEL% NEQ 0 (
   ECHO git wasn't found 
@@ -38,8 +48,6 @@ IF %ERRORLEVEL% NEQ 0 (
   exit
 )
 
-set PROJECT_NAME=docker-ZIP-to-PDF
-
 if not exist "%temp%\%PROJECT_NAME%" (
   c:
   cd %temp%
@@ -52,6 +60,22 @@ if not exist "%temp%\%PROJECT_NAME%" (
   git pull --force
 )
 
+md "%temp%\%PROJECT_NAME%.cache"
+if not exist "%temp%\%PROJECT_NAME%.cache" mkdir "%temp%\%PROJECT_NAME%.cache"
+
+fc "%temp%\%PROJECT_NAME%\Dockerfile" "%temp%\%PROJECT_NAME%.cache\Dockerfile" > nul
+if errorlevel 1 (
+  docker-compose build
+  xcopy "%temp%\%PROJECT_NAME%\package.json" "%temp%\%PROJECT_NAME%.cache\" /Y
+)
+
+fc "%temp%\%PROJECT_NAME%\package.json" "%temp%\%PROJECT_NAME%.cache\package.json" > nul
+if errorlevel 1 (
+  docker-compose build
+)
+
+xcopy "%temp%\%PROJECT_NAME%\Dockerfile" "%temp%\%PROJECT_NAME%.cache\" /Y
+xcopy "%temp%\%PROJECT_NAME%\package.json" "%temp%\%PROJECT_NAME%.cache\" /Y
 
 for %%x in (%*) do (
   if not exist "%%~x"  (

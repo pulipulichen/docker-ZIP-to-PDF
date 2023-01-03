@@ -5,6 +5,7 @@
 
 var="$1"
 useParams="true"
+WORK_DIR=`pwd`
 if [ ! -f "$var" ]; then
   # echo "$1 does not exist."
   # exit
@@ -68,12 +69,13 @@ cp "/tmp/${PROJECT_NAME}/package.json" "/tmp/${PROJECT_NAME}.cache/"
 # 執行指令
 
 if [ "${useParams}" == "true" ]; then
+  # echo "use parameters"
   for var in "$@"
   do
-    if [ ! -f "${var}" ]; then
-      var=`realpath ${var}`
-    fi
-    echo "${var}"
+    cd "${WORK_DIR}"
+    var=`realpath ${var}`
+    # echo "${var}"
+    cd "/tmp/${PROJECT_NAME}"
     node "/tmp/${PROJECT_NAME}/index.js" "${var}"
   done
 else

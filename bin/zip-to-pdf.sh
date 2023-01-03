@@ -50,6 +50,16 @@ else
 fi
 
 # -----------------
+# 確認看看要不要做docker-compose build
+
+mkdir -p "/tmp/${PROJECT_NAME}.cache"
+
+cmp --silent "/tmp/${PROJECT_NAME}/Dockerfile" "/tmp/${PROJECT_NAME}.cache/Dockerfile" && cmp --silent "/tmp/${PROJECT_NAME}/package.json" "/tmp/${PROJECT_NAME}.cache/package.json" || docker-compose build
+
+cp "/tmp/${PROJECT_NAME}/Dockerfile" "/tmp/${PROJECT_NAME}.cache/"
+cp "/tmp/${PROJECT_NAME}/package.json" "/tmp/${PROJECT_NAME}.cache/"
+
+# -----------------
 # 執行指令
 
 for var in "$@"

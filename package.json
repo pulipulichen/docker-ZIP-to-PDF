@@ -1,6 +1,6 @@
 {
   "name": "docker-ZIP-to-PDF",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Package images to a ZIP file and convert it to PDF.",
   "main": "index.js",
   "scripts": {

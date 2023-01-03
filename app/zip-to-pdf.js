@@ -4,6 +4,9 @@ const GetExistedArgv = require('./lib/GetExistedArgv')
 const path = require('path')
 const fs = require('fs')
 
+const extract = require('extract-zip')
+ 
+
 let main = async function () {
   let files = GetExistedArgv()
 
@@ -22,11 +25,18 @@ let main = async function () {
     let commandsUnzip = [
       `rm -rf /cache/*`,
       `cp "${file}" "/cache/${filename}"`,
-      `unzip -j -d "/cache/img" "/cache/${filename}"`
+      // `unzip -j -d "/cache/img" "/cache/${filename}"`
     ]
     for (let j = 0; j < commandsUnzip.length; j++) {
       await ShellSpawn(commandsUnzip[j])
     }
+
+    // -----------------
+
+    await extract(`/cache/${filename}`, { dir: '/cache/img' })
+    console.log('Extraction complete')
+
+    // ----------------
 
     // 列出檔案名稱
     let imgs = fs.readdirSync('/cache/img/')

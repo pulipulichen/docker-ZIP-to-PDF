@@ -11,7 +11,7 @@ module.exports = function () {
   args = args.filter(arg => {
 
     if (fs.existsSync(arg) === false) {
-      arg = path.resolve('./', arg)
+      arg = path.resolve(process.cwd(), arg)
     }
 
     console.log({arg})

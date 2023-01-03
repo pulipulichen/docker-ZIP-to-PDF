@@ -22,7 +22,7 @@ let main = async function () {
     let commandsUnzip = [
       `rm -rf /cache/*`,
       `cp "${file}" "/cache/${filename}"`,
-      `unzip -d "/cache/img" "/cache/${filename}"`
+      `unzip -j -d "/cache/img" "/cache/${filename}"`
     ]
     for (let j = 0; j < commandsUnzip.length; j++) {
       await ShellSpawn(commandsUnzip[j])

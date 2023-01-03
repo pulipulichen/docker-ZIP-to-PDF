@@ -16,7 +16,7 @@ let main = async function () {
       file = path.resolve('./', file)
     }
 
-    console.log(file)
+    console.log({file})
 
     if (file.endsWith('.zip') === false) {
       continue

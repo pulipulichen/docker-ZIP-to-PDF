@@ -36,7 +36,7 @@ module.exports = async function(input, targetDir) {
 			if (fs.statSync(target).isDirectory() === false) {
 				target = path.dirname(target)
 			}
-
+			console.log(['mv', entry, target])
       await ShellSpawn(['mv', entry, target])
     }
   }

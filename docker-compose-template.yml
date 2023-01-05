@@ -3,7 +3,8 @@ services:
   app:
     build: .
     tty: true
-    command: [CMD]
+    # command: [CMD]
+    command: node /app/zip-to-pdf.js "/input/[INPUT]"
     volumes: 
       - ./app:/app/
       - ./cache:/cache/

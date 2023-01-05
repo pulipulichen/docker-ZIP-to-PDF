@@ -4,8 +4,8 @@ const SetDockerComposeYML = require('./app/lib/SetDockerComposeYML')
 
 // const dialog = require('node-file-dialog')
 
-// const fs = require('fs')
-// const path = require('path')
+const fs = require('fs')
+const path = require('path')
 
 let main = async function () {
   // 1. 先取得輸入檔案的列表

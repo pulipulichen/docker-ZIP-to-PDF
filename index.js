@@ -20,7 +20,7 @@ let main = async function () {
     }
     
     SetDockerComposeYML(file)
-    await ShellSpawn('docker-compose up')
+    // await ShellSpawn('docker-compose up')
   }
 
 }

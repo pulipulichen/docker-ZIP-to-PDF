@@ -11,20 +11,6 @@ let main = async function () {
   // 1. 先取得輸入檔案的列表
   let files = GetExistedArgv()
 
-  if (files.length === 0) {
-    try {
-      const dialog = require('node-file-dialog')
-      files.push(await dialog({type:'open-file'}))
-    }
-    catch (e) {
-      await ShellSpawn(['npm', 'i', 'node-file-dialog@1.0.3'])
-      const dialog = require('node-file-dialog')
-      files.push(await dialog({type:'open-file'}))
-    } 
-    
-    // files.push(await dialog({type:'open-file'}))
-  }
-
   // console.log(files)
   for (let i = 0; i < files.length; i++) {
     let file = files[i]

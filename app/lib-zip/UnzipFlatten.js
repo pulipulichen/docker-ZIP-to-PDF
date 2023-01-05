@@ -29,15 +29,18 @@ module.exports = async function(input, targetDir) {
     let entry = entries[i]
     let name = path.basename(entry)
     // let target = `${targetDir}/${name}`
-		let target = `${targetDir}/`
+		let target = `${targetDir}/${name}`
     if (fs.existsSync(target) === false) {
       // fs.renameSync(entry, target)
 			// console.log(['mv2', entry, target])
-			if (fs.statSync(target).isDirectory() === false) {
-				target = path.dirname(target)
-			}
-			console.log(['mv', entry, target])
-      await ShellSpawn(['mv', entry, target])
+			// if (fs.statSync(target).isDirectory() === false) {
+			// 	target = path.dirname(target)
+			// }
+			// console.log(['mv', entry, target])
+      await ShellSpawn(['mv', entry, path.dirname(target)])
     }
+		// else {
+		// 	console.log('target is existed.', target)
+		// }
   }
 } 

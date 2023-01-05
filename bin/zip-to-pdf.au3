@@ -5,6 +5,7 @@ Global $sPROJECT_NAME = "docker-ZIP-to-PDF"
 Global $sFILE_EXT = "zip"
 
 ;~ MsgBox($MB_SYSTEMMODAL, "Title", "This message box will timeout after 10 seconds or select the OK button.", 10)
+Local $sWorkingDir = @WorkingDir
 
 ;~ ---------------------
 
@@ -87,7 +88,11 @@ EndIf
 If $sUseParams = true Then
 	For $i = 1 To $CmdLine[0]
 		If Not FileExists($CmdLine[$i]) Then
-			MsgBox($MB_SYSTEMMODAL, $sPROJECT_NAME, "File not found: " & $CmdLine[$i])
+			If Not FileExists($sWorkingDir & "/" & $CmdLine[$i]) Then
+				MsgBox($MB_SYSTEMMODAL, $sPROJECT_NAME, "File not found: " & $CmdLine[$i])
+			Else
+				ShellExecuteWait("node", $sProjectFolder & "\index.js" & ' "' & $CmdLine[$i] & '"')	
+			EndIf
 		Else
 			ShellExecuteWait("node", $sProjectFolder & "\index.js" & ' "' & $CmdLine[$i] & '"')
 		EndIf

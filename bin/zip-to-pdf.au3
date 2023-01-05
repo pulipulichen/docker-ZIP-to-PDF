@@ -92,8 +92,8 @@ If $sUseParams = true Then
 	Next
 Else
 	For $i = 1 To $sFiles[0]
-		ConsoleWrite("node " & $sProjectFolder & "\index.js" & ' "' & $sFiles[$i] & '"')
-		MsgBox($MB_SYSTEMMODAL, $sPROJECT_NAME, "node " & $sProjectFolder & "\index.js" & ' "' & $sFiles[$i] & '"')
+		;~ ConsoleWrite("node " & $sProjectFolder & "\index.js" & ' "' & $sFiles[$i] & '"')
+		;~ MsgBox($MB_SYSTEMMODAL, $sPROJECT_NAME, "node " & $sProjectFolder & "\index.js" & ' "' & $sFiles[$i] & '"')
 		ShellExecuteWait("node", $sProjectFolder & "\index.js" & ' "' & $sFiles[$i] & '"')
 	Next
 EndIf

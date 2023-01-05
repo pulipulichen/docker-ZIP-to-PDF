@@ -48,21 +48,21 @@ EndIf
 
 ;~ ---------------------
 
-Local $sProjectFolder = "%temp%\" & $sPROJECT_NAME
+Local $sProjectFolder = @TempDir & "\" & $sPROJECT_NAME
 If FileExists($sProjectFolder) Then
-	FileChangeDir("%temp%")
-	ShellExecuteWait("git", "clone" "https://github.com/pulipulichen/" & $sPROJECT_NAME & ".git")
+	FileChangeDir(@TempDir)
+	ShellExecuteWait("git", "clone https://github.com/pulipulichen/" & $sPROJECT_NAME & ".git")
 	FileChangeDir($sProjectFolder)
 Else
 	FileChangeDir($sProjectFolder)
-	ShellExecuteWait("git", "reset" "--hard")
-	ShellExecuteWait("git", "pull" "--force")
+	ShellExecuteWait("git", "reset --hard")
+	ShellExecuteWait("git", "pull --force")
 EndIf
 
 ;~ ---------------------
 
 Local $sProjectFolderCache = $sProjectFolder & ".cache"
-If No FileExists($sProjectFolderCache) Then
+If Not FileExists($sProjectFolderCache) Then
 	DirCreate($sProjectFolderCache)
 EndIf
 
@@ -84,14 +84,16 @@ FileCopy($sProjectFolder & "\package.json", $sProjectFolderCache & "\package.jso
 
 If $sUseParams = true Then
 	For $i = 1 To $CmdLine[0]
-		If No FileExists($CmdLine[$i]) Then
+		If Not FileExists($CmdLine[$i]) Then
 			MsgBox($MB_SYSTEMMODAL, $sPROJECT_NAME, "File not found: " & $CmdLine[$i])
 		Else
-			ShellExecuteWait("node", $sProjectFolder & "\index.js", $CmdLine[$i])
+			ShellExecuteWait("node", $sProjectFolder & "\index.js" & ' "' & $CmdLine[$i] & '"')
 		EndIf
 	Next
 Else
-	For $i = 2 To $sFiles[0] Then
-		ShellExecuteWait("node", $sProjectFolder & "\index.js", $sFiles[$i])
+	For $i = 1 To $sFiles[0]
+		ConsoleWrite("node " & $sProjectFolder & "\index.js" & ' "' & $sFiles[$i] & '"')
+		MsgBox($MB_SYSTEMMODAL, $sPROJECT_NAME, "node " & $sProjectFolder & "\index.js" & ' "' & $sFiles[$i] & '"')
+		ShellExecuteWait("node", $sProjectFolder & "\index.js" & ' "' & $sFiles[$i] & '"')
 	Next
 EndIf

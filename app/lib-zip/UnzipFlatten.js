@@ -27,6 +27,7 @@ module.exports = async function(input, targetDir) {
   const entries = fg.sync([`${tmpDir}/**/*.*`], { dot: true, onlyFiles: true })
   for (let i = 0; i < entries.length; i++) {
     let entry = entries[i]
+		console.log('entry', entry)
     let name = path.basename(entry)
     // let target = `${targetDir}/${name}`
 		let target = `${targetDir}/${name}`

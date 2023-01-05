@@ -14,7 +14,7 @@ module.exports = async function(input, targetDir) {
   if (fs.existsSync(tmpDir)) {
     await ShellSpawn([`rm`, `-rf`, tmpDir]) 
   }
-
+	// 
   fs.mkdirSync(tmpDir, { recursive: true})
 
   await extract(input, { dir: tmpDir })

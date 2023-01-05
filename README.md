@@ -15,3 +15,4 @@ https://pulipulichen.github.io/docker-ZIP-to-PDF/bin/zip-to-pdf.sh
 
 - https://pulipulichen.github.io/docker-ZIP-to-PDF/bin/zip-to-pdf.exe
 - https://ppt.cc/fKcTvx
+- 中文亂碼問題：https://mobileai.net/2020/04/03/win10-cmd-code/

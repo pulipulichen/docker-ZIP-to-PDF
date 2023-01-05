@@ -6,41 +6,32 @@ Global $sFILE_EXT = "zip"
 
 ;~ MsgBox($MB_SYSTEMMODAL, "Title", "This message box will timeout after 10 seconds or select the OK button.", 10)
 
-Local $sUseParams = true
-Local $sFiles[]
-If $CmdLine[0] = 0 Then
-	$sUseParams = false
-	Local $sMessage = "Select File"
-	Local $sFileOpenDialog = FileOpenDialog($sMessage, @DesktopDir & "\", "ZIP (*." & $sFILE_EXT & ")", $FD_FILEMUSTEXIST + $FD_MULTISELECT)
-	$sFiles = StringSplit($sFileOpenDialog, "|")
-EndIf
-
 ;~ ---------------------
 
 Local $result = 0
 
-$result = ShellExecuteWait('WHERE', 'git')
+$result = ShellExecuteWait('WHERE', 'git', "", "open", @SW_HIDE)
 If $result = 1 then
 	MsgBox($MB_SYSTEMMODAL, "Environment Setting", "Please install GIT.")
-	ShellExecute("https://git-scm.com/downloads")
+	ShellExecute("https://git-scm.com/downloads", "", "open", @SW_HIDE)
 	Exit
 EndIf
 
-$result = ShellExecuteWait('WHERE', 'node')
+$result = ShellExecuteWait('WHERE', 'node', "", "open", @SW_HIDE)
 If $result = 1 then
 	MsgBox($MB_SYSTEMMODAL, "Environment Setting", "Please install Node.js.")
-	ShellExecute("https://nodejs.org/en/download/")
+	ShellExecute("https://nodejs.org/en/download/", "", "open", @SW_HIDE)
 	Exit
 EndIf
 
-$result = ShellExecuteWait('WHERE', 'docker-compose')
+$result = ShellExecuteWait('WHERE', 'docker-compose', "", "open", @SW_HIDE)
 If $result = 1 then
 	MsgBox($MB_SYSTEMMODAL, "Environment Setting", "Please install Docker Desktop.")
-	ShellExecute("https://docs.docker.com/compose/install/")
+	ShellExecute("https://docs.docker.com/compose/install/", "", "open", @SW_HIDE)
 	Exit
 EndIf
 
-$result = ShellExecuteWait('docker', 'version')
+$result = ShellExecuteWait('docker', 'version', "", "open", @SW_HIDE)
 If $result = 1 then
 	MsgBox($MB_SYSTEMMODAL, "Environment Setting", "Please start Docker Desktop.")
 	Exit
@@ -49,13 +40,14 @@ EndIf
 ;~ ---------------------
 
 Local $sProjectFolder = @TempDir & "\" & $sPROJECT_NAME
-If FileExists($sProjectFolder) Then
+;~ MsgBox($MB_SYSTEMMODAL, FileExists($sProjectFolder), $sProjectFolder)
+If Not FileExists($sProjectFolder) Then
 	FileChangeDir(@TempDir)
 	ShellExecuteWait("git", "clone https://github.com/pulipulichen/" & $sPROJECT_NAME & ".git")
 	FileChangeDir($sProjectFolder)
 Else
 	FileChangeDir($sProjectFolder)
-	ShellExecuteWait("git", "reset --hard")
+	ShellExecuteWait("git", "reset --hard", "", "open", @SW_HIDE)
 	ShellExecuteWait("git", "pull --force")
 EndIf
 
@@ -81,6 +73,16 @@ FileCopy($sProjectFolder & "\Dockerfile", $sProjectFolderCache & "\Dockerfile", 
 FileCopy($sProjectFolder & "\package.json", $sProjectFolderCache & "\package.json", $FC_OVERWRITE)
 
 ;~ ---------------------
+
+
+Local $sUseParams = true
+Local $sFiles[]
+If $CmdLine[0] = 0 Then
+	$sUseParams = false
+	Local $sMessage = "Select File"
+	Local $sFileOpenDialog = FileOpenDialog($sMessage, @DesktopDir & "\", "ZIP (*." & $sFILE_EXT & ")", $FD_FILEMUSTEXIST + $FD_MULTISELECT)
+	$sFiles = StringSplit($sFileOpenDialog, "|")
+EndIf
 
 If $sUseParams = true Then
 	For $i = 1 To $CmdLine[0]

@@ -31,6 +31,7 @@ module.exports = async function(input, targetDir) {
     let target = `${targetDir}/${name}`
     if (fs.existsSync(target) === false) {
       // fs.renameSync(entry, target)
+			console.log(['mv', entry, target])
       await ShellSpawn(['mv', entry, target])
     }
   }

@@ -73,7 +73,7 @@ if [ "${useParams}" == "true" ]; then
   for var in "$@"
   do
     cd "${WORK_DIR}"
-    var=`realpath ${var}`
+    var=`realpath "${var}"`
     # echo "${var}"
     cd "/tmp/${PROJECT_NAME}"
     node "/tmp/${PROJECT_NAME}/index.js" "${var}"

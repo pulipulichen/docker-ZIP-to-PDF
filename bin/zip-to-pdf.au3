@@ -48,7 +48,7 @@ If Not FileExists($sProjectFolder) Then
 Else
 	FileChangeDir($sProjectFolder)
 	ShellExecuteWait("git", "reset --hard", "", "open", @SW_HIDE)
-	ShellExecuteWait("git", "pull --force")
+	ShellExecuteWait("git", "pull --force", "", "open", @SW_HIDE)
 EndIf
 
 ;~ ---------------------
@@ -58,13 +58,13 @@ If Not FileExists($sProjectFolderCache) Then
 	DirCreate($sProjectFolderCache)
 EndIf
 
-$result = ShellExecuteWait("fc", $sProjectFolder & "\Dockerfile", $sProjectFolderCache & "\Dockerfile")
+$result = ShellExecuteWait("fc", '"' & $sProjectFolder & "\Dockerfile" & '" "' & $sProjectFolderCache & "\Dockerfile" & '"', "", "open", @SW_HIDE)
 If $result = 1 then
 	ShellExecuteWait("docker-compose", "build")
 	FileCopy($sProjectFolder & "\Dockerfile", $sProjectFolderCache & "\Dockerfile", $FC_OVERWRITE)
 EndIf
 
-$result = ShellExecuteWait("fc", $sProjectFolder & "\package.json", $sProjectFolderCache & "\package.json")
+$result = ShellExecuteWait("fc", '"' & $sProjectFolder & "\package.json" & '" "' & $sProjectFolderCache & "\package.json" & '"', "", "open", @SW_HIDE)
 If $result = 1 then
 	ShellExecuteWait("docker-compose", "build")
 EndIf
@@ -83,7 +83,7 @@ If $CmdLine[0] = 0 Then
 	Local $sFileOpenDialog = FileOpenDialog($sMessage, @DesktopDir & "\", "ZIP (*." & $sFILE_EXT & ")", $FD_FILEMUSTEXIST + $FD_MULTISELECT)
 	$sFiles = StringSplit($sFileOpenDialog, "|")
 EndIf
-
+ 
 If $sUseParams = true Then
 	For $i = 1 To $CmdLine[0]
 		If Not FileExists($CmdLine[$i]) Then
@@ -94,8 +94,7 @@ If $sUseParams = true Then
 	Next
 Else
 	For $i = 1 To $sFiles[0]
-		;~ ConsoleWrite("node " & $sProjectFolder & "\index.js" & ' "' & $sFiles[$i] & '"')
-		;~ MsgBox($MB_SYSTEMMODAL, $sPROJECT_NAME, "node " & $sProjectFolder & "\index.js" & ' "' & $sFiles[$i] & '"')
+		FileChangeDir($sProjectFolder)
 		ShellExecuteWait("node", $sProjectFolder & "\index.js" & ' "' & $sFiles[$i] & '"')
 	Next
 EndIf

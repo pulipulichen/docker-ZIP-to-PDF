@@ -21,27 +21,28 @@ let main = async function () {
 
 		// ------------
 
-		let filename = path.basename(file)
-		let dirname = path.dirname(file)
-		let tempFilename = Math.floor(Math.random() * 100000) + '.zip'
+		// let filename = path.basename(file)
+		// let dirname = path.dirname(file)
+		// let tempFilename = Math.floor(Math.random() * 100000) + '.zip'
 		
-		let tempFilePath = path.resolve(dirname, tempFilename)
-		// console.log(tempFilePath)
-		// console.log(path.resolve(dirname, filename.slice(0, -4) + '.txt'))
+		// let tempFilePath = path.resolve(dirname, tempFilename)
+		// // console.log(tempFilePath)
+		// // console.log(path.resolve(dirname, filename.slice(0, -4) + '.txt'))
 
-		fs.renameSync(file, tempFilePath)
+		// fs.renameSync(file, tempFilePath)
 
 		// ------------
     
-    SetDockerComposeYML(tempFilePath)
+    // SetDockerComposeYML(tempFilePath)
+		SetDockerComposeYML(file)
     await ShellSpawn('docker-compose up')
 
 		// --------------
 
-		fs.renameSync(tempFilePath, file)
-		if (fs.existsSync(path.resolve(dirname, tempFilename.slice(0, -4)) + '.pdf')) {
-			fs.renameSync(path.resolve(dirname, tempFilename.slice(0, -4)) + '.pdf', path.resolve(dirname, filename.slice(0, -4)) + '.pdf')
-		}
+		// fs.renameSync(tempFilePath, file)
+		// if (fs.existsSync(path.resolve(dirname, tempFilename.slice(0, -4)) + '.pdf')) {
+		// 	fs.renameSync(path.resolve(dirname, tempFilename.slice(0, -4)) + '.pdf', path.resolve(dirname, filename.slice(0, -4)) + '.pdf')
+		// }
   }
 
 }

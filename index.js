@@ -39,6 +39,7 @@ let main = async function () {
 		// --------------
 
 		fs.renameSync(tempFilePath, file)
+		return false
 		fs.renameSync(path.resolve(dirname, tempFilename.slice(0, -4)) + '.pdf', path.resolve(dirname, filename.slice(0, -4)) + '.pdf')
   }
 

@@ -10,7 +10,7 @@ const ShellSpawn = require('./../lib/ShellSpawn')
 const tmpDir = `/tmp/unzip`
 
 module.exports = async function(input, targetDir) {
-	console.log('gogogogo')
+	// console.log('gogogogo')
   if (fs.existsSync(tmpDir)) {
     await ShellSpawn([`rm`, `-rf`, tmpDir]) 
   }
@@ -18,7 +18,7 @@ module.exports = async function(input, targetDir) {
   fs.mkdirSync(tmpDir, { recursive: true})
 
   await extract(input, { dir: tmpDir })
-  console.log('Extraction complete')
+  // console.log('Extraction complete')
 
   if (targetDir.endsWith('/')) {
     targetDir = targetDir.slice(0, -1)
@@ -32,7 +32,7 @@ module.exports = async function(input, targetDir) {
 		let target = `${targetDir}/`
     if (fs.existsSync(target) === false) {
       // fs.renameSync(entry, target)
-			console.log(['mv2', entry, target])
+			// console.log(['mv2', entry, target])
 			if (fs.statSync(target).isDirectory() === false) {
 				target = path.dirname(target)
 			}

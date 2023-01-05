@@ -3,8 +3,9 @@ Package images to a ZIP file and convert it to PDF.
 
 https://ppt.cc/fHCZ1x
 
-Example file: https://pulipulichen.github.io/docker-ZIP-to-PDF/example%20%E5%9C%96%E7%89%87-tiff.zip
+Example file: https://pulipulichen.github.io/docker-ZIP-to-PDF/example%20folder/example%20%E5%9C%96%E7%89%87-tiff
 
+example 圖片-tiff
 
 ## Linux
 

@@ -20,28 +20,28 @@ EndIf
 Local $result = 0
 
 $result = ShellExecuteWait('WHERE', 'git')
-If $result = 0 then
+If @error > 0 then
 	MsgBox($MB_SYSTEMMODAL, "Environment Setting", "Please install GIT.")
 	ShellExecute("https://git-scm.com/downloads")
 	Exit
 EndIf
 
 $result = ShellExecuteWait('WHERE', 'node')
-If $result = 0 then
+If @error > 0 then
 	MsgBox($MB_SYSTEMMODAL, "Environment Setting", "Please install Node.js.")
 	ShellExecute("https://nodejs.org/en/download/")
 	Exit
 EndIf
 
 $result = ShellExecuteWait('WHERE', 'docker-compose')
-If $result = 0 then
+If @error > 0 then
 	MsgBox($MB_SYSTEMMODAL, "Environment Setting", "Please install Docker Desktop.")
 	ShellExecute("https://docs.docker.com/compose/install/")
 	Exit
 EndIf
 
 $result = ShellExecuteWait('docker', 'version')
-If $result = 0 then
+If @error > 0 then
 	MsgBox($MB_SYSTEMMODAL, "Environment Setting", "Please start Docker Desktop.")
 	Exit
 EndIf
@@ -67,13 +67,13 @@ If No FileExists($sProjectFolderCache) Then
 EndIf
 
 $result = ShellExecuteWait("fc", $sProjectFolder & "\Dockerfile", $sProjectFolderCache & "\Dockerfile")
-If $result = 0 then
+If @error > 0 then
 	ShellExecuteWait("docker-compose", "build")
 	FileCopy($sProjectFolder & "\Dockerfile", $sProjectFolderCache & "\Dockerfile", $FC_OVERWRITE)
 EndIf
 
 $result = ShellExecuteWait("fc", $sProjectFolder & "\package.json", $sProjectFolderCache & "\package.json")
-If $result = 0 then
+If @error > 0 then
 	ShellExecuteWait("docker-compose", "build")
 EndIf
 

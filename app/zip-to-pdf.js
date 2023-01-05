@@ -8,7 +8,7 @@ const UnzipFlatten = require('./lib-zip/UnzipFlatten')
 
 let main = async function () {
   let files = GetExistedArgv()
-	console.log('gogogo')
+	return false
   for (let i = 0; i < files.length; i++) {
     let file = files[i]
     if (file.endsWith('.zip') === false) {

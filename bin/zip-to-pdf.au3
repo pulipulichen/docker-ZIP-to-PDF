@@ -91,7 +91,7 @@ If $sUseParams = true Then
 			If Not FileExists($sWorkingDir & "/" & $CmdLine[$i]) Then
 				MsgBox($MB_SYSTEMMODAL, $sPROJECT_NAME, "File not found: " & $CmdLine[$i])
 			Else
-				ShellExecuteWait("node", $sProjectFolder & "\index.js" & ' "' & $CmdLine[$i] & '"')	
+				ShellExecuteWait("node", $sProjectFolder & "\index.js" & ' "' & $sWorkingDir & "/" & $CmdLine[$i] & '"')	
 			EndIf
 		Else
 			ShellExecuteWait("node", $sProjectFolder & "\index.js" & ' "' & $CmdLine[$i] & '"')

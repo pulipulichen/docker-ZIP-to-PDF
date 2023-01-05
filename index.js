@@ -11,7 +11,7 @@ let main = async function () {
   // 1. 先取得輸入檔案的列表
   let files = GetExistedArgv()
 
-  // console.log(files)
+  console.log('gogogo', files)
   for (let i = 0; i < files.length; i++) {
     let file = files[i]
 

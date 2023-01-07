@@ -2,7 +2,7 @@
 #include <FileConstants.au3>
 
 Global $sPROJECT_NAME = "docker-ZIP-to-PDF"
-Global $sFILE_EXT = "zip"
+Global $sFILE_EXT = "ZIP (*.zip)"
 
 ;~ MsgBox($MB_SYSTEMMODAL, "Title", "This message box will timeout after 10 seconds or select the OK button.", 10)
 Local $sWorkingDir = @WorkingDir
@@ -81,7 +81,7 @@ Local $sFiles[]
 If $CmdLine[0] = 0 Then
 	$sUseParams = false
 	Local $sMessage = "Select File"
-	Local $sFileOpenDialog = FileOpenDialog($sMessage, @DesktopDir & "\", "ZIP (*." & $sFILE_EXT & ")", $FD_FILEMUSTEXIST + $FD_MULTISELECT)
+	Local $sFileOpenDialog = FileOpenDialog($sMessage, @DesktopDir & "\", $sFILE_EXT , $FD_FILEMUSTEXIST + $FD_MULTISELECT)
 	$sFiles = StringSplit($sFileOpenDialog, "|")
 EndIf
  

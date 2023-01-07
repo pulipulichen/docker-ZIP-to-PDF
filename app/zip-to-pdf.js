@@ -39,10 +39,27 @@ let main = async function () {
     // 列出檔案名稱
     let imgs = fs.readdirSync('/cache/img/')
     imgs.sort((a, b) => {
-      let aID = Number(a.match(/\d+/)[0])
-      let bID = Number(b.match(/\d+/)[0])
+      let aMatches = a.match(/\d+/)
+      let bMatches = b.match(/\d+/)
+      
+      if (!aMatches || !bMatches) {
+        return a.localeCompare(b)
+      }
 
-      return (aID - bID)
+      for (let i = 0; i < aMatches.length; i++) {
+
+        if (!aMatches[i] || !bMatches[i]) {
+          return 0
+        }
+
+        let aID = Number(aMatches[i])
+        let bID = Number(bMatches[i])
+
+        if (aID !== bID) {
+          return (aID - bID)
+        }
+      }
+
     })
 
     imgs = imgs.map(filename => {

@@ -40,7 +40,8 @@ EndIf
 
 ;~ ---------------------
 
-Local $sProjectFolder = @TempDir & "\" & $sPROJECT_NAME
+; Local $sProjectFolder = @TempDir & "\" & $sPROJECT_NAME
+Local $sProjectFolder = @HomeDrive & @HomePath & "\docker-app\" & $sPROJECT_NAME
 ;~ MsgBox($MB_SYSTEMMODAL, FileExists($sProjectFolder), $sProjectFolder)
 If Not FileExists($sProjectFolder) Then
 	FileChangeDir(@TempDir)

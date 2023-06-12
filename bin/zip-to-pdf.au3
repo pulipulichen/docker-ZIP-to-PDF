@@ -81,7 +81,7 @@ Local $sUseParams = true
 Local $sFiles[]
 If $CmdLine[0] = 0 Then
 	$sUseParams = false
-	MsgBox($MB_SYSTEMMODAL, "Environment Setting", "4.0")
+	;MsgBox($MB_SYSTEMMODAL, "Environment Setting", "4.0")
 	Local $sMessage = "Select File"
 	Local $sFileOpenDialog = FileOpenDialog($sMessage, @DesktopDir & "\", $sFILE_EXT , $FD_FILEMUSTEXIST + $FD_MULTISELECT)
 	$sFiles = StringSplit($sFileOpenDialog, "|")
@@ -102,7 +102,7 @@ If $sUseParams = true Then
 		EndIf
 	Next
 Else
-	MsgBox($MB_SYSTEMMODAL, "Environment Setting", "4.3")
+	;MsgBox($MB_SYSTEMMODAL, "Environment Setting", "4.3")
 	For $i = 1 To $sFiles[0]
 		FileChangeDir($sProjectFolder)
 		;MsgBox($MB_SYSTEMMODAL, "Environment Setting", $sProjectFolder & "\index.js" & ' "' & $sFiles[$i] & '"')

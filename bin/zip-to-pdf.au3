@@ -39,12 +39,12 @@ If $result = 1 then
 EndIf
 
 ;~ ---------------------
-
+;MsgBox($MB_SYSTEMMODAL, "Environment Setting", "1")
 ; Local $sProjectFolder = @TempDir & "\" & $sPROJECT_NAME
 Local $sProjectFolder = @HomeDrive & @HomePath & "\docker-app\" & $sPROJECT_NAME
 ;~ MsgBox($MB_SYSTEMMODAL, FileExists($sProjectFolder), $sProjectFolder)
 If Not FileExists($sProjectFolder) Then
-	FileChangeDir(@TempDir)
+	FileChangeDir(@HomeDrive & @HomePath & "\docker-app\")
 	ShellExecuteWait("git", "clone https://github.com/pulipulichen/" & $sPROJECT_NAME & ".git")
 	FileChangeDir($sProjectFolder)
 Else
@@ -54,7 +54,7 @@ Else
 EndIf
 
 ;~ ---------------------
-
+;MsgBox($MB_SYSTEMMODAL, "Environment Setting", "2")
 Local $sProjectFolderCache = $sProjectFolder & ".cache"
 If Not FileExists($sProjectFolderCache) Then
 	DirCreate($sProjectFolderCache)
@@ -75,12 +75,13 @@ FileCopy($sProjectFolder & "\Dockerfile", $sProjectFolderCache & "\Dockerfile", 
 FileCopy($sProjectFolder & "\package.json", $sProjectFolderCache & "\package.json", $FC_OVERWRITE)
 
 ;~ ---------------------
-
+;MsgBox($MB_SYSTEMMODAL, "Environment Setting", "3")
 
 Local $sUseParams = true
 Local $sFiles[]
 If $CmdLine[0] = 0 Then
 	$sUseParams = false
+	MsgBox($MB_SYSTEMMODAL, "Environment Setting", "4.0")
 	Local $sMessage = "Select File"
 	Local $sFileOpenDialog = FileOpenDialog($sMessage, @DesktopDir & "\", $sFILE_EXT , $FD_FILEMUSTEXIST + $FD_MULTISELECT)
 	$sFiles = StringSplit($sFileOpenDialog, "|")
@@ -92,15 +93,19 @@ If $sUseParams = true Then
 			If Not FileExists($sWorkingDir & "/" & $CmdLine[$i]) Then
 				MsgBox($MB_SYSTEMMODAL, $sPROJECT_NAME, "File not found: " & $CmdLine[$i])
 			Else
+				;MsgBox($MB_SYSTEMMODAL, "Environment Setting", "4.1")
 				ShellExecuteWait("node", $sProjectFolder & "\index.js" & ' "' & $sWorkingDir & "/" & $CmdLine[$i] & '"')	
 			EndIf
 		Else
+			;MsgBox($MB_SYSTEMMODAL, "Environment Setting", "4.2")
 			ShellExecuteWait("node", $sProjectFolder & "\index.js" & ' "' & $CmdLine[$i] & '"')
 		EndIf
 	Next
 Else
+	MsgBox($MB_SYSTEMMODAL, "Environment Setting", "4.3")
 	For $i = 1 To $sFiles[0]
 		FileChangeDir($sProjectFolder)
+		;MsgBox($MB_SYSTEMMODAL, "Environment Setting", $sProjectFolder & "\index.js" & ' "' & $sFiles[$i] & '"')
 		ShellExecuteWait("node", $sProjectFolder & "\index.js" & ' "' & $sFiles[$i] & '"')
 	Next
 EndIf
